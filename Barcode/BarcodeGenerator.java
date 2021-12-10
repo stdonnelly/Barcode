@@ -106,12 +106,6 @@ public class BarcodeGenerator {
                     digitsToEncode = Arrays.copyOfRange(digitsToEncode, 1, 13);
                 }
 
-                // // Test statement
-                // for (int i = 0; i < 12; i++) {
-                // System.out.print(digitsToEncode[i]);
-                // }
-                // System.out.println();
-
                 // Encode the end bits and another quiet zone
                 cBytes.addBits(0b101, 3);
                 cBytes.addBits(0, 9);
@@ -129,18 +123,6 @@ public class BarcodeGenerator {
         if (noBarcode) {
             return;
         }
-
-        // String barcodeStr = cBytes.toString();
-
-        // // This just prints out the barcode
-        // for (int i = 0; i < barcodeStr.length(); i++) {
-        // barcodeStr = barcodeStr.replace('1', ' ');
-        // barcodeStr = barcodeStr.replace('0', '\u2588');
-        // }
-
-        // for (int i = 0; i < BARCODE_HEIGHT; i += 2) {
-        // System.out.println(barcodeStr);
-        // }
 
         // Make the entire image as a bitmap and compress it
         barcodeLine = cBytes.getBytes();
@@ -165,8 +147,8 @@ public class BarcodeGenerator {
         // Overwrite the original bitmap with the compressed bitmap
         int deflatedSize = defl.deflate(deflatedBitmap);
         if (deflatedSize >= barcodeBitmapSize) {
-            // Barcode bitmaps are highly compressable, so this essentially will never
-            // happen
+            // Barcode bitmaps are highly compressable,
+            // so this essentially will never happen
             System.out.println("Error:");
             System.out.println("Compressed bitmap is somehow larger than or the same size as the original bitmap.");
             System.out.println("Exiting now.");
